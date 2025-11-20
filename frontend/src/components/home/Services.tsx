@@ -2,7 +2,7 @@
 'use client';
 
 import ServiceCard from '../ui/ServiceCard';
-import { services } from '@/constants/services';
+import { services } from '@/src/constants/services';
 
 export default function Services() {
   return (
