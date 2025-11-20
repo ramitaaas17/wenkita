@@ -18,7 +18,7 @@ export default function Hero() {
       {/* Contenido principal */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-          Clínica <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-purple-200">Wenka</span>
+          Clínica <span className="text-transparent bg-clip-text bg-linear-to-br from-blue-200 to-purple-200">Wenka</span>
         </h1>
         
         <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">

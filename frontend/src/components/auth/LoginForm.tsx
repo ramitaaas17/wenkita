@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/src/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 
 interface LoginFormProps {
@@ -39,13 +39,13 @@ export default function LoginForm({ onSwitchToRegister, onClose }: LoginFormProp
   return (
     <div className="w-full max-w-md mx-auto p-8">
       {/* Header con animación */}
-      <div className="text-center mb-8 animate-fade-in">
+      <div className="text-center mb-8">
         <div className="inline-block p-3 bg-linear-to-br from-blue-500 to-cyan-500 rounded-2xl mb-4 shadow-lg">
           <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
         </div>
-        <h2 className="text-3xl font-bold mb-2 bg-linear-to-r from-blue-600 via-cyan-500 to-blue-600 bg-clip-text text-transparent">
+        <h2 className="text-3xl font-bold mb-2 text-gradient">
           Bienvenido de nuevo
         </h2>
         <p className="text-gray-500">
@@ -55,7 +55,7 @@ export default function LoginForm({ onSwitchToRegister, onClose }: LoginFormProp
 
       {/* Error Alert mejorado */}
       {error && (
-        <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg animate-shake">
+        <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
           <div className="flex items-center">
             <svg className="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -142,7 +142,7 @@ export default function LoginForm({ onSwitchToRegister, onClose }: LoginFormProp
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full relative bg-linear-to-r from-blue-600 via-cyan-500 to-blue-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white py-3.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none overflow-hidden group"
+          className="w-full relative bg-linear-to-r from-blue-600 via-cyan-500 to-blue-600 text-white py-3.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none overflow-hidden group"
         >
           <span className="relative z-10 flex items-center justify-center">
             {isLoading ? (
@@ -162,7 +162,6 @@ export default function LoginForm({ onSwitchToRegister, onClose }: LoginFormProp
               </>
             )}
           </span>
-          <div className="absolute inset-0 bg-linear-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 group-hover:translate-x-full transition-all duration-700"></div>
         </button>
       </form>
 
@@ -199,39 +198,6 @@ export default function LoginForm({ onSwitchToRegister, onClose }: LoginFormProp
           </button>
         </p>
       </div>
-
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-          20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out;
-        }
-        .animate-shake {
-          animation: shake 0.5s ease-in-out;
-        }
-        .bg-size-200 {
-          background-size: 200% 100%;
-        }
-        .bg-pos-0 {
-          background-position: 0% 50%;
-        }
-        .bg-pos-100 {
-          background-position: 100% 50%;
-        }
-      `}</style>
     </div>
   );
 }

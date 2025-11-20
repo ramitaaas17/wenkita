@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { Appointment } from '@/types';
+import type { Appointment } from '@/src/types';
 
 interface CalendarProps {
   onDateClick: (date: Date, appointments: Appointment[]) => void;

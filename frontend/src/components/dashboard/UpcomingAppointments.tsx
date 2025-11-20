@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect, ReactElement } from 'react';
-import type { Appointment } from '@/types';
+import type { Appointment } from '@/src/types';
 
 interface UpcomingAppointmentsProps {
   appointments: Appointment[];

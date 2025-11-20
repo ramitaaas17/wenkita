@@ -2,9 +2,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/src/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import type { RegisterData } from '@/types';
+import type { RegisterData } from '@/src/types';
 
 interface RegisterFormProps {
   onSwitchToLogin: () => void;
@@ -64,7 +64,6 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
     <div className="w-full mx-auto">
       <div className="grid lg:grid-cols-[42%_58%] gap-0 items-stretch min-h-[580px]">
         {/* Left Side - Welcome Section */}
-        {/* eslint-disable-next-line */}
         <div className="hidden lg:flex flex-col justify-center bg-linear-to-br from-blue-600 via-cyan-500 to-blue-600 rounded-l-3xl p-12 text-white relative overflow-hidden">
           {/* Decorative circles */}
           <div className="absolute top-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
@@ -87,41 +86,23 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
             </div>
 
             <div className="space-y-5 pt-2">
-              <div className="flex items-start space-x-4">
-                <div className="shrink-0 w-10 h-10 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center mt-0.5 shadow-md">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
+              {[
+                { title: 'Agenda en segundos', desc: 'Reserva tus citas de manera instantánea' },
+                { title: 'Notificaciones automáticas', desc: 'Nunca olvides una cita importante' },
+                { title: '100% Seguro', desc: 'Tus datos están protegidos' }
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-start space-x-4">
+                  <div className="shrink-0 w-10 h-10 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center mt-0.5 shadow-md">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-1">{item.title}</h4>
+                    <p className="text-blue-50 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-lg mb-1">Agenda en segundos</h4>
-                  <p className="text-blue-50 text-sm leading-relaxed">Reserva tus citas de manera instantánea</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="shrink-0 w-10 h-10 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center mt-0.5 shadow-md">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-lg mb-1">Notificaciones automáticas</h4>
-                  <p className="text-blue-50 text-sm leading-relaxed">Nunca olvides una cita importante</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="shrink-0 w-10 h-10 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center mt-0.5 shadow-md">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-lg mb-1">100% Seguro</h4>
-                  <p className="text-blue-50 text-sm leading-relaxed">Tus datos están protegidos</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -130,7 +111,7 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
         <div className="p-8 lg:p-12 bg-gray-50/30">
           {/* Header */}
           <div className="text-center lg:text-left mb-7">
-            <h2 className="text-2xl lg:text-3xl font-bold mb-2 bg-linear-to-r from-blue-600 via-cyan-500 to-blue-600 bg-clip-text text-transparent">
+            <h2 className="text-2xl lg:text-3xl font-bold mb-2 text-gradient">
               Crear cuenta
             </h2>
             <p className="text-gray-500 text-sm">
@@ -140,7 +121,7 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
 
           {/* Error Alert */}
           {error && (
-            <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-xl animate-shake">
+            <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-xl">
               <div className="flex items-center">
                 <svg className="w-5 h-5 text-red-500 mr-3 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -151,51 +132,38 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Nombre y Telefono en una fila */}
+            {/* Nombre y Apellido */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="group">
                 <label htmlFor="nombre" className="block text-sm font-semibold text-gray-700 mb-2">
-                  Nombre Completo
+                  Nombre
                 </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                  </div>
-                  <input
-                    id="nombre"
-                    name="nombre"
-                    type="text"
-                    value={formData.nombre}
-                    onChange={handleChange}
-                    required
-                    className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
-                    placeholder="Dieguin Pimplin"
-                  />
-                </div>
+                <input
+                  id="nombre"
+                  name="nombre"
+                  type="text"
+                  value={formData.nombre}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
+                  placeholder="Juan"
+                />
               </div>
 
               <div className="group">
-                <label htmlFor="telefono" className="block text-sm font-semibold text-gray-700 mb-2">
-                  Teléfono <span className="text-gray-400 font-normal text-xs">(Opcional)</span>
+                <label htmlFor="apellido" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Apellido
                 </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <input
-                    id="telefono"
-                    name="telefono"
-                    type="tel"
-                    value={formData.telefono}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
-                    placeholder="555-123-4567"
-                  />
-                </div>
+                <input
+                  id="apellido"
+                  name="apellido"
+                  type="text"
+                  value={formData.apellido}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
+                  placeholder="Pérez"
+                />
               </div>
             </div>
 
@@ -204,37 +172,41 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
               <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
                 Correo Electrónico
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                  </svg>
-                </div>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
-                  placeholder="tu@email.com"
-                />
-              </div>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
+                placeholder="tu@email.com"
+              />
             </div>
 
-            {/* Contraseñas en una fila */}
+            {/* Teléfono */}
+            <div className="group">
+              <label htmlFor="telefono" className="block text-sm font-semibold text-gray-700 mb-2">
+                Teléfono <span className="text-gray-400 font-normal text-xs">(Opcional)</span>
+              </label>
+              <input
+                id="telefono"
+                name="telefono"
+                type="tel"
+                value={formData.telefono}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
+                placeholder="555-123-4567"
+              />
+            </div>
+
+            {/* Contraseñas */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="group">
                 <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
                   Contraseña
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                  </div>
                   <input
                     id="password"
                     name="password"
@@ -243,7 +215,7 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
                     onChange={handleChange}
                     required
                     minLength={6}
-                    className="w-full pl-10 pr-10 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
+                    className="w-full px-4 pr-10 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
                     placeholder="••••••••"
                   />
                   <button
@@ -251,16 +223,16 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
                   >
-                    {showPassword ? (
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      {showPassword ? (
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                      </svg>
-                    ) : (
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    )}
+                      ) : (
+                        <>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </>
+                      )}
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -270,18 +242,13 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
                   Confirmar
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
                   <input
                     id="confirmPassword"
                     type={showConfirmPassword ? 'text' : 'password'}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
-                    className="w-full pl-10 pr-10 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
+                    className="w-full px-4 pr-10 py-2.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 outline-none text-sm"
                     placeholder="••••••••"
                   />
                   <button
@@ -289,16 +256,16 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
                   >
-                    {showConfirmPassword ? (
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      {showConfirmPassword ? (
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                      </svg>
-                    ) : (
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    )}
+                      ) : (
+                        <>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </>
+                      )}
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -315,7 +282,7 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full relative bg-linear-to-r from-blue-600 via-cyan-500 to-blue-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none overflow-hidden group"
+              className="w-full relative bg-linear-to-r from-blue-600 via-cyan-500 to-blue-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none overflow-hidden group"
             >
               <span className="relative z-10 flex items-center justify-center">
                 {isLoading ? (
@@ -335,7 +302,6 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
                   </>
                 )}
               </span>
-              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 group-hover:translate-x-full transition-all duration-700"></div>
             </button>
 
             {/* Divider */}
@@ -374,26 +340,6 @@ export default function RegisterForm({ onSwitchToLogin, onClose }: RegisterFormP
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-          20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        .animate-shake {
-          animation: shake 0.5s ease-in-out;
-        }
-        .bg-size-200 {
-          background-size: 200% 100%;
-        }
-        .bg-pos-0 {
-          background-position: 0% 50%;
-        }
-        .bg-pos-100 {
-          background-position: 100% 50%;
-        }
-      `}</style>
     </div>
   );
 }
